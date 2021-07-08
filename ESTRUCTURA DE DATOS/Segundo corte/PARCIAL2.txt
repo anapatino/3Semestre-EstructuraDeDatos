@@ -1,0 +1,207 @@
+Algoritmo Parcia2
+
+/********* DECLARANDO LA ESTRUCTURA********************/
+ESTRUCTURA Nodo2{
+ char LETRA;
+ Nodo2 * SIG;
+ Nodo2 *ANT;
+FinEstructura
+Nodo2 *p2, *q2, *cabeza2,*FIN2; 
+ESTRUCTURA Nodo{
+ char LETRA;
+ Nodo * SIG;
+  Nodo *ANT;
+FinEstructura
+/* Ahora declaramos las variables de tipo apuntador a esta estructura */
+Nodo *p, *q, *cabeza,*FIN; 
+
+ Definiendo SW como entero
+ definiendo OP='S' como carcater;
+ mientras (OP=='S')
+ 
+     
+        Escribir  "M  E  N  U";
+        
+        Escribir  "1.ADICIONAR lISTA DOBLE ";
+        
+        Escribir "2.CONSULTAR LISTADO ";
+        
+        Escribir  "3.BORRAR";  
+       
+        Escribir "4.SALIR ";
+      
+
+      Hacer
+         
+        Escribir "SELECCIONE UNA ALTERNATIVA  " leer SW;
+      Mientras (( SW < 1 ) || ( SW > 4 ) ) ;
+       
+
+	   segun(SW){
+    	 1: AgregarNodo2() ;
+    	        break;
+    	 2: RecorrerLista();
+    	        break; 
+         3: BorrarDato();
+    	        break;
+	 4:OP='N';
+    	        break;
+					       
+	   }
+	
+	  }
+ FinAlgoritmo
+ /*************AGREGAR DATOS LISTA SIMPLE********************/
+ FUNCION AgregarNodo(Nodo *p){
+     Si(cabeza==NULL)
+         cabeza=p; 
+	p->ANT=cabeza;
+	p->SIG=cabeza;
+  Sino
+	p->ANT=cabeza->ANT;
+	p->ANT->SIG=p;
+	 p->SIG=cabeza;
+	cabeza->ANT=p;
+  FinSi
+  FINAgregarNodo
+  /*************AGREGAR DATOS LISTA DOBLE ********************/
+FUNCION AgregarNodo2(){
+
+ char Resp='S'	;
+ 	 while(Resp=='S'){
+ 	 	 p2=new(struct Nodo2);
+ 	 	 if(p2==NULL){
+ 	 	 	gotoxy(25,20);cout<<"NO HAY MEMORIA DISPONIBLE";getch();
+ 	 	 	gotoxy(25,20);cout<<"                                     ";
+		   }else {
+		   	     system("cls"); 
+		   	     gotoxy(45,6);cout<<"AGREGANDO DATOS LISTA DOBLE";
+		   	   
+		   	     gotoxy(40,12);cout<<"LETRA : ";p2->LETRA=getch();
+		   	      cin.sync();
+		   	     /**********AGREGAR NODO A LA LISTA CIRCULAR***/
+		   	     
+		   	     if(cabeza2==NULL){
+		   	     	cabeza2=p2; 
+		   	     	p2->ANT=cabeza2;
+		   	     	p2->SIG=cabeza2;
+					}else{
+						p2->ANT=cabeza2->ANT;
+						p2->ANT->SIG=p2;
+					    p2->SIG=cabeza2;
+					    cabeza2->ANT=p2;
+		            }
+		   } 
+		   do{
+		    	gotoxy(25,20);cout<<"                                     ";
+        	    gotoxy(43,20);cout<<"SEGUIR AGREGANDO   S/N ->"; 
+			    Resp= getch();
+                Resp = toupper(Resp);
+		   }while((Resp!='S')&&(Resp!='N'));
+
+ 	
+ }
+  FINAgregarNodo2
+  /*************RECORRER LISTA CIRCULAR SIMPLE Y DOBLE ********************/
+ FUNCION RecorrerLista(){
+
+  	if((cabeza==NULL)&&(cabeza2==NULL)){
+  	   gotoxy(25,20);cout<<"NO HAY INFORMACION DE ESTUDIANTE EN LA LISTA";
+  	   gotoxy(25,20);cout<<"                                                ";
+	  }else{
+	  	     system("cls"); 
+	          p=cabeza; p2=cabeza2;
+	       
+	          gotoxy(45,6);cout<<"LISTA CIRCULAR SIMPLE Y DOBLE";
+		   	  gotoxy(40,10);cout<<"L1 =  ";
+		   	
+	           do{
+	               cout<<p->LETRA;
+	               cout<<"  ";
+	             	p=p->SIG;
+			 	} while(p!=cabeza);
+			 	  gotoxy(40,12);cout<<"L2 = ";
+			 	do{
+	          	   cout<<p2->LETRA;
+	               cout<<"  ";
+	             	p2=p2->SIG;
+			 	} while(p2!=cabeza2);
+			 	
+			 	
+	      	 gotoxy(38,20);cout<<"PULSE UNA TECLA PARA VOLVER AL MENU PRINCIPAL";getch();
+	       }
+  	
+  	
+  FINRecorrerLista
+  
+
+    /*************BORRAR DATO********************/
+ FUNCION BorrarDato(){
+
+    	char Encontro,letra;
+        p=new(struct Nodo);
+     if(cabeza2==NULL)	{
+     	gotoxy(25,20);cout<<"NO HAY INFORMACION DE ESTUDIANTE EN LA LISTA";
+  	    gotoxy(25,20);cout<<"                                                ";
+	 }else{
+	   	     system("cls");  
+	  	     gotoxy(45,6); cout<<"B O R R A R   D A T O ";
+	  	     
+	  	     p2=cabeza2; Encontro='N'; 
+	  	      do{ 
+	  	         
+	  	     	if((p2->LETRA=='A')||(p2->LETRA=='E')||(p2->LETRA=='I')||(p2->LETRA=='O')||(p2->LETRA=='U')||(p2->LETRA=='a')||(p2->LETRA=='e')||(p2->LETRA=='i')||(p2->LETRA=='o')||(p2->LETRA=='u')){
+	  	     		 Encontro='S';
+	  	     		 strcpy (letra,p2->LETRA) ;	 
+				 	   AgregarNodo(char letra);
+	  	     		 	/**************BORRAR EL NODO CORRECTAMENTE***/
+				 	    if((cabeza2->SIG==cabeza2)&&(p2==cabeza2)){
+				 	 	***NODO UNICO****
+				 	 	 delete(p2);cabeza2=NULL;
+					    }else{
+					  	   if((cabeza2->SIG!=cabeza2)&&(p2==cabeza2)){
+					  	 /********BORRAR EL PRIMERO,NO UNICO******/
+					  	  	 cabeza2=cabeza2->SIG;FIN2->SIG=cabeza2;
+					  	  	 delete(p2);
+							}else{
+								if(p2==FIN2){/*******BORRAR EL ULTIMO*********/
+								  q2=cabeza2;
+								  while(q2->SIG!=p2){
+								  	q2=q2->SIG;
+								  }
+								  q2->SIG=cabeza2; delete(p2);FIN2=q2;
+									
+								}else{
+									/*******BORRA UN CUALQUIERA DISTINTO AL PRIMERO Y AL ULTIMO****/
+									q2=cabeza2;
+									while(q2->SIG!=p2){
+										q2=q2->SIG;
+									}
+									q2->SIG=p2->SIG;delete(p2);
+								}
+							}
+					  }
+                    
+				   }else{
+				   	 p2=p2->SIG;
+				   }
+			   }while((Encontro!='S')&&(p2!=cabeza2));
+			   
+			   if(Encontro=='N'){
+	  	       	    gotoxy(38,20);cout<<"NO SE ENCONTRARON VOCALES EN LA LISTA";getch(); 
+				 }else{ 
+				       
+	  	     		    gotoxy(50,16);cout<<"ELEMENTOS ELIMINADO";
+	  	     		    gotoxy(38,20);cout<<"PULSE UNA TECLA PARA VOLVER AL MENU PRINCIPAL";getch();
+	  	     		     
+				 	 
+				 
+				 	
+				 }
+	  	     
+	 }
+FINBorrarDato
+
+   
+   
+   

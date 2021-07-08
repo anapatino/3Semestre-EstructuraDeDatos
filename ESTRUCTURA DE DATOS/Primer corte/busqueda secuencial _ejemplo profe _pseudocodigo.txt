@@ -1,0 +1,24 @@
+
+ Busqueda secuencial
+
+
+t<-0
+Escribir('Introduzca el elemento a buscar')
+ Leer(t)
+NUMERO<-false
+Para i <-1 hasta NEL haga
+   Si(x[i]=t) entonces
+     NUMERO<-true 
+   pos<-i
+   Fin si
+Fin para
+ 
+Si (NUMERO=false) entonces
+       Escriba('Nro ',t,' no fue encontrado')
+   Sino
+     ('Nro ',t,' fue encontrado ',pos) 
+   
+ Fin si
+ 
+
+Fin busqueda secuencial

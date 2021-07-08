@@ -1,0 +1,161 @@
+Algoritmo Parcial2
+
+/********* DECLARANDO LA ESTRUCTURA********************/
+
+ESTRUCTURA Nodo{
+
+ char LETRA; 
+ Nodo * SIG;
+ Nodo * ANT;
+FinEstructura
+
+/* Ahora declaramos las variables de tipo apuntador a esta estructura */
+Nodo *p, *q, *cabeza,*FIN; 
+
+ESTRUCTURA Nodo2{
+
+ char LETRA; 
+ Nodo2 * SIG;
+ Nodo2 * ANT;
+FinEstructura
+
+Nodo2 *p2, *q2, *cabeza2,*FIN2;
+
+Definiendo SW como Entero
+Definiendo OP='S'como Caracter
+ Mientras(OP=='S') haga
+ 
+       Escribir "M  E  N  U";
+       Escribir "1.CONSULTAR LISTADO 
+       Escribir "2.BORRAR VOCALES EN L1";
+       Escribir "3.SALIR";  
+
+      Hacer
+         Escribir "SELECCIONE UNA ALTERNATIVA  ";Leer SW;
+      Mientras (( SW < 1 ) O ( SW > 3 ) ) ;
+    
+     Segun(SW) hacer
+    	   1: RecorrerLista();
+    	   2: RecorrerLista2();
+           3:OP='N';
+    					       
+     FinSegun
+
+FinMientras
+
+FinAlgorimo
+ 
+  
+/*************RECORRER LISTA CIRCULAR  DOBLE ********************/
+ FUNCION RecorrerLista(){
+  p=cabeza; p2=cabeza2
+  Si(cabeza2==NULL) hacer
+  	   Escribir "NO HAY INFORMACION EN LA LISTA"
+  	   Escribir "                                                "
+  Sino
+	  	   
+	   Escribir "LISTA CIRCULAR  DOBLE "
+	   Escribir "LETRAS REGISTRADAS"
+           Escribir "L1 = "
+		
+	Hacer
+	         Escribir p2->LETRA
+	         Escribir "  "
+	         p2=p2->SIG
+	Mientras (p2<>cabeza2)
+
+	    Escribir "L2 = ";
+
+	 Si(p<>NULL) hacer
+	          Hacer
+	                Escribir p->LETRA
+	                Escribir "  "
+	             	p=p->SIG
+	         Mientras (p<>cabeza)
+	 FinSi		
+			 	 
+			
+			
+  FinSi
+  	 Escribir "PULSE UNA TECLA PARA VOLVER AL MENU PRINCIPAL"
+  	
+ FINRecorrerLista
+  
+  /*************RECORRER LISTA CIRCULAR SIMPLE Y DOBLE ********************/
+ FUNCION RecorrerLista2(){
+
+  Si(cabeza2==NULL)
+  	 Escribir "NO HAY INFORMACION  EN LA LISTA"
+  	 Escribir  "                                                "
+  Sino 
+	  p2=cabeza2
+	Hacer
+
+	       Si((p2->LETRA=='A')O(p2->LETRA=='E')O(p2->LETRA=='I')O(p2->LETRA=='O')O(p2->LETRA=='U')O(p2->LETRA=='a')O(p2->LETRA=='e')O(p2->LETRA=='i')O(p2->LETRA=='o')O(p2->LETRA=='u')) hacer
+	               	 AgregarNodo()
+	               	 BorrarVocal()
+		FinSi
+	             	p2=p2->SIG;
+	Mientras(p2<>cabeza2)
+ FinSi			
+  	 Escribir "BORRADO CON EXITO"
+  	
+  FINRecorrerLista2
+
+/************* FUNCION QUE AGREGA DATOS LISTA ********************/
+
+ FUNCION AgregarNodo()
+ 	Nodo *p=new(struct Nodo);
+      p->LETRA=p2->LETRA
+     Si(cabeza==NULL) hacer 
+		cabeza=p
+		p->ANT=cabeza
+		p->SIG=cabeza
+     Sino
+		p->ANT=cabeza->ANT
+		p->ANT->SIG=p
+		p->SIG=cabeza
+		cabeza->ANT=p
+     FinSi	
+ FINAgregarNodo
+ 
+ /*************FUNCION QUE BORRA VOCALES DE LA LISTA*****************/
+
+ FUNCION BorrarVocal() 
+    /**************BORRAR EL NODO CORRECTAMENTE***/
+  Si((cabeza2->SIG==cabeza2)Y(p2==cabeza2)) hacer
+	//**NODO UNICO****/		 	 
+     delete(p2)
+     cabeza2=NULL
+ Sino
+	Si((cabeza2->SIG<>cabeza2)Y(p2==cabeza2)) hacer
+	    //********BORRAR EL PRIMERO,NO UNICO******//
+					  	  
+		cabeza2=cabeza2->SIG
+		cabeza2->ANT=FIN2
+		FIN2->SIG=cabeza2
+		delete(p2)
+		p2=cabeza2
+	Sino
+		Si(p2==FIN2) hacer   /*******BORRAR EL ULTIMO*********/
+		   p2->ANT->SIG=cabeza2;
+		   FIN2=FIN2->ANT;
+		   cabeza2->ANT=FIN2; 
+		   delete(p2);			         
+		   p2=cabeza2;
+	       Sino
+		     //*******BORRA UN CUALQUIERA DISTINTO AL PRIMERO Y AL ULTIMO****//
+		     p2->ANT->SIG=p2->SIG;
+		     p2->SIG->ANT=p2->ANT;
+		     delete(p2);
+		     p2=cabeza2;
+						
+		FinSi
+	FinSi
+FinSi
+FINBorrarVocal
+	
+
+   
+   
+   

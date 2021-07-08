@@ -1,0 +1,332 @@
+Algoritmo Punto1
+      /*********Declarando estructuras*******/
+      ESTRUCTURA Nodo1{
+
+        int NUM;
+        Nodo1 * SIG;
+
+      FinEstructura 
+        Nodo1 *cabeza1,*FIN1,*borrar;
+
+       ESTRUCTURA Nodo2{
+
+         int NUM;
+         Nodo2 * SIG;
+         Nodo2 * ANT;
+       FinEstructura
+        Nodo2 *cabeza2,*FIN2;
+       Definir SW como Entero;
+       Definir OP='S' como Caracter;
+
+   Mientras(OP=='S')hacer 
+
+        Escribir"M  E  N  U";
+        Escribir"1.ADICIONAR DATOS LISTA L1 ";
+        Escribir"2.ADICIONAR DATOS LISTA L2(ORDENADAMENTE)";
+        Escribir"3.CONSULTA LISTA L1 " ;
+        Escribir"4.CONSULTA LISTA L2 ";
+        Escribir"5.CRUZAR LISTAS";
+        Escribir"6.SALIR ";
+
+      Hacer
+         Escribir"SELECCIONE UNA ALTERNATIVA  ";cin >> SW;
+      Mientras (( SW < 1 ) || ( SW > 6 ) ) ;
+
+     
+	   Segun(SW) hacer
+    	      1:PedirNodoUsuarioL1() ;
+    	          
+    	      2: PedirNodoUsuarioL2();
+    	       
+              3:MostraListaL1();
+    	   
+              4:MostraListaL2();
+    	 
+	      5:copiarUnico();
+    	               
+	      6: OP='N';
+    	        				       
+	    FinSegun
+	
+   FinMientras
+ /***************PEDIR DATOS AL USUARIO NODO DOBLE***/
+ FUNCION PedirNodoUsuarioL2() 
+  Definir Seguir='S'como Caracter;
+  Definir cont,res,dato como Entero;
+    
+    
+ 	Hacer
+ 		Nodo2 *p1=new(struct Nodo2);
+ 		
+ 		Si(p1==NULL) Hacer
+ 			Escribir"NO HAY MEMORIA DISPONIBLE";
+ 	 	 	Escribir"                                     ";
+		 Sino
+		 	   Limpiar pantalla
+		 	   Escribir"CAPTURA DE DATOS PARA EL NODO DOBLE ";
+		          cont=cont+1;
+		      Escribir"NUMERO [   ]  -> ",cont;
+		        
+		     Hacer
+	                    Escribir"                                                ";
+			    Leer dato;
+		           res=ConsultarDato(dato);
+		     Mientras(res==1) ;
+				 p1->NUM=dato;	
+	
+		        Agregar_NodoL2(p1);
+	        FinSi
+		    	Escribir"                                     ";
+        	        Escribir"SEGUIR AGREGANDO   S/N ->"; 
+              
+		   
+	 Mientras(Seguir!='N');
+FINPedirNodoUsuarioL2
+
+/***************AGREGAR  NODO DOBLE***********/
+
+FUNCION Agregar_NodoL2(Nodo2 *p2) {
+ 	Nodo2 *q2=new(struct Nodo2);
+
+  /*******BALANCEAR *********/
+  
+	 p2->SIG=NULL;p2->ANT=NULL;
+	 
+   /*******INSERTO EL NODO ORDENADAMENTE A LA LISTA *********/ 
+   
+	Si(cabeza2==NULL) Hacer
+	   cabeza2=p2;	FIN2=p2;
+		 	        
+	Sino
+        	Si(p2->NUM>=cabeza2->NUM) Hacer
+		   p2->SIG=cabeza2;cabeza2->ANT=p2; cabeza2=p2;
+			  	    	
+		Sino
+		       Si(p2->NUM<=FIN2->NUM)
+					 FIN2->SIG=p2;p2->ANT=FIN2; FIN2=p2;
+		       Sino
+			   q2=cabeza2;
+		          Hacer(p2->NUM<=q2->NUM)
+				q2=q2->SIG;
+  			  FinMientras
+			   p2->ANT=q2->ANT;
+			   q2->ANT->SIG=p2;
+			   p2->SIG=q2;
+			   q2->ANT=p2;
+		      FinSi
+	       FinSi
+	 		    
+	  FinSi
+		 	 
+		 	 
+FIN Agregar_NodoL2
+
+/*************BUSQUEDA DE NRO REPETIDOS********************/
+
+FUNCION ConsultarDato(int dato){
+  Definir Encontro como Caracter;
+  Definir res=0 como Entero;
+   Nodo2 *recorrer2=new(struct Nodo2);
+
+  Si(cabeza2!=NULL)
+      recorrer2=cabeza2;
+      Encontro='N'; 
+	  	     
+      Hacer
+	   Si(recorrer2->NUM==dato)
+	  	Encontro='S';
+                     
+	   Sino
+		recorrer2=recorrer2->SIG;
+	   FinSi
+	Mientras((Encontro!='S')&&(recorrer2!=NULL));
+	        
+	  Si(Encontro=='S')   
+	     Escribir"                      "<< "EL Nro YA EXISTE ";         
+	      res=1;
+	  FinSi
+  FinSi			 
+	  	             
+	  return res;	          
+	   
+FIN ConsultarDato
+
+/***************PEDIR DATOS AL USUARIO (NODO SIMPLE)***********/
+
+ FUNCION PedirNodoUsuarioL1() {
+Definir Seguir='S'como Carcater;
+Definir cont=0 como Entero;
+ Hacer
+ 	 Nodo1 *p1=new(struct Nodo1);
+ 	Si(p1==NULL)
+ 	   Escribir"NO HAY MEMORIA DISPONIBLE";getch();
+ 	   Escribir"                                     ";
+	Sino
+	   limpiar pantalla
+		 	 cont=cont+1;
+	
+	   Escribir"AGREGANDO DATOS AL NODO SIMPLE";
+           Escribir"NUMERO [ ",cont,"]  -> ";
+	   Leer p1->NUM;
+		limpiar pantalla
+	  Agregar_NodoL1(p1);
+		 
+        FinSi
+		 
+ 	Hacer
+	     Escribir"                                     ";
+             Escribir"SEGUIR AGREGANDO   S/N ->"; 
+             Leer Seguir;
+           
+        Mientras((Seguir!='S')&&(Seguir!='N'));
+ 		
+
+Mientras(Seguir!='N');
+FIN PedirNodoUsuarioL1
+
+/***************AGREGAR  NODO SIMPLE***********/
+ FUNCION Agregar_NodoL1(Nodo1 *p1) {
+
+    /*******BALANCEAR *********/
+	p1->SIG=NULL;
+    /*******AGREGO EL NODO A LA LISTA *********/ 
+	 Si(cabeza1==NULL)
+		 cabeza1=p1;
+	 Sino
+		 FIN1->SIG=p1;
+	FinSi
+	 FIN1=p1;
+
+ FIN Agregar_NodoL1
+ 
+ /***********MOSTRAR PRIMER  NODO ***********/
+ 
+FUNCION MostraListaL1(){
+        Nodo1 *recorrer1=new(struct Nodo1);
+         recorrer1=cabeza1;
+    Si(recorrer1==NULL)
+  	Escribir "NO HAY MEMORIA DISPONIBLE";getch();
+ 	Escribir"                                     ";
+    Sino
+	  limpiar pantalla
+	  Escribir"LISTA SIMPLE DE NUMEROS REGISTRADOS";
+	  Escribir"L1  =  ";
+		   
+	Hacer  
+	       Escribir recorrer1->NUM,"  ";
+	        recorrer1=recorrer1->SIG;
+        Mientras(recorrer1!=NULL);
+    FinSi
+  	
+  FIN MostraListaL1
+  /***********MOSTRAR SEGUNDO NODO ***********/
+FUNCION MostraListaL2()
+        Nodo2 *recorrer2=new(struct Nodo2);
+         recorrer2=cabeza2;   
+  	Si(recorrer2==NULL)
+  	    Escribir "NO HAY MEMORIA DISPONIBLE"
+ 	    Escribir "                                     ";
+	Sino
+	      Escribir "LISTA DOBLE ENLAZADA DE NUMEROS REGISTRADOS";
+              Escribir "L2  =  ";
+     Hacer
+         Escribir recorrer2->NUM<<"  ";
+	 recorrer2=recorrer2->SIG;
+   Mientras(recorrer2!=NULL);
+	      
+	  }
+  	 	
+ FIN MostraListaL2 
+
+    /***********BORRAR NODO ***********/
+
+FUNCION borrarNodo(Nodo1 *borrar)
+
+Definir Encontro como Caracter;
+    Si(cabeza1==NULL)
+    	   Escribir"NO HAY MEMORIA DISPONIBLE";getch();
+ 	   Escribir"                                     ";	
+    Sino
+	  limpiar pantalla
+          Escribir"CRUZE DE LISTAS";
+          Escribir"REALIZADO CON EXITO";
+	   Si (borrar == cabeza1)  
+                    borrarCabeza();
+           Sino
+                 Si (borrar == FIN1) 
+                       borrarUltimo();
+                 Sino
+                       borrarMitad(borrar);
+                 FinSi
+	   FinSi
+    FinSi
+
+		
+ FIN borrarNodo
+
+///BORRAR CABEZA////////
+FUNCION borrarCabeza()
+    Nodo1 *nodoBorrar= cabeza1;
+    cabeza1 = cabeza1->SIG;
+    delete(nodoBorrar);
+FIN borrarCabeza()
+
+////////BORRAR ULTIMO//////
+
+FUNCION borrarUltimo(){
+    Nodo1 *recorrer1=new(struct Nodo1);
+    recorrer1 = cabeza1;
+
+    Mientras(recorrer1->SIG->SIG!= NULL) 
+        recorrer1 = recorrer1->SIG;
+    FinMientras
+
+    Nodo1 *nodoBorrar = FIN1;
+    FIN1 = recorrer1;
+    FIN1->SIG= NULL;
+    nodoBorrar->SIG = NULL;
+    delete(nodoBorrar);
+FIN borrarUltimo
+
+////BORRAR NODO EN LA MITAD/////
+
+FUNCION borrarMitad(Nodo1 *borrar){
+
+    Nodo1 *recorrer1=new(struct Nodo1);;
+    recorrer1 = cabeza1;
+
+    Mientras(recorrer1->SIG->SIG!= NULL && recorrer1->SIG->NUM != borrar->NUM)  hacer 
+  
+        recorrer1 = recorrer1->SIG;
+    FinMientras
+
+    Si (recorrer1->SIG->NUM == borrar->NUM) 
+   
+        Nodo1 *nodoBorrar = recorrer1->SIG;
+        recorrer1->SIG = nodoBorrar->SIG;
+        nodoBorrar->SIG = NULL;
+        delete(nodoBorrar);
+    FinSi
+FIN borrarMitad
+
+////////COPIAR NRO NO REPETIDO//////////
+FUNCION copiarUnico(){
+Nodo1 *recorrer1=cabeza1;
+
+    Mientras(recorrer1 != NULL)  
+  
+        Nodo1 *siguiente = recorrer1->SIG;
+
+        Si( ConsultarDato(recorrer1->NUM))  
+            borrarNodo(recorrer1);
+        Sino
+            Nodo2 *p1 = new(struct Nodo2);
+            p1->NUM= recorrer1->NUM;
+            Agregar_NodoL2(p1);
+        FinSi
+        recorrer1 = siguiente;
+    FinMientras
+FIN copiarUnico	
+
+
+FinAlgoritmo

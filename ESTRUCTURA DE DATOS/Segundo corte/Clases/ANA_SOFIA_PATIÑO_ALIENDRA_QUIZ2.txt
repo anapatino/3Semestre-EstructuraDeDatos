@@ -1,0 +1,65 @@
+RETIRAR HISTORIA DE PACIENTE 2.0
+       Seguir='S';
+     Mientras(Seguir=='S')Haga
+           Escribir"                        ";
+           Escribir"CEDULA QUE DESEA RETIRAR->"; Sin Saltar Leer dato;
+          Si(cabeza==NULL)Entonces
+
+             Escribir "LA LISTA ESTA VACIA"
+
+                Sino
+                      p=cabeza;Encontro='N';
+	           Mientras((Encontro=='N' )&&(p!=NULL))Haga{
+		        Cont++;
+			 Si(p->IDENT==dato)entonces{
+				 Encontro='S';
+				  Escribir"             "
+				  Escribir"Encontrado el Paciente en la posición",Cont;
+                                  Escribir" Documento de Identidad :,p->IDENT;
+                                  Escribir"Nombre :",p->NOMBRE;
+                                  Escribir"Estrato  ", p->EST;
+                                  Escribir"Diagnóstico :",p->DIAG<;
+                                   Escribir"             ";
+		             Sino
+			           p=p->SIG;
+			  FinSi
+		   FinMientras  
+		    Si(Encontro=='N')entonces
+			 Escribir" No esta ese dato en la lista …"
+			Sino
+			   Escribir"      "
+				  	        
+                            Escribir" Documento de Identidad :",p->IDENT
+                            Escribir"Nombre :",p->NOMBRE
+                            Escribir"Estrato  ", p->EST
+                            Escribir"Diagnóstico :",p->DIAG
+                            Escribir""
+                              Hacer{
+                              	cout<<"DESEA BORRAR ESTE REGISTRO [S/N]  "
+                                 Leer opcion
+				}Mientras((opcion<>'N')AND(opcion<>'S'));
+							   
+		                Si(opcion=='S'){
+			            /* ubicamos OTRO apuntador ANTES de P */
+                                    q=cabeza;
+                                    Mientras(q->SIG!=p )Haga
+                                         q=q->SIG;
+                                    FinMientras
+                                       /* Ya Q está apuntando a un nodo ANTES de P, entonces
+                                        “Desengancho” el nodo al cual apunta P */
+                                        q->SIG=p->SIG;
+                                        /* Y ahora “Libero” el nodo al cual apunta P */
+                                       delete(p);
+                                       /* Está en el PRIMER nodo???? */
+                                      Si(p==cabeza)entonces
+					  cabeza=cabeza->SIG;
+					  delete(p);
+                                  
+				      FinSi
+			         FinSi	  
+		    FinSi
+
+           FinSi
+           Escribir"Desea Borrar otro valor  S/N"; Sin Saltar Leer Seguir;
+    FinMientras
+FIN RETIRAR HISTORIA DE PACIENTE 2.0 
